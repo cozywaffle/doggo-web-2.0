@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthDto } from './dto';
+import { AuthDto, LoginDto } from './dto';
 import { AuthGuard } from './auth.guard';
 import { Public } from 'src/utils/global-token-decorator';
 
@@ -12,6 +12,12 @@ export class AuthController {
   @Post('register')
   signUp(@Body() dto: AuthDto) {
     return this.authService.signUp(dto);
+  }
+
+  @Public()
+  @Post('login')
+  logIn(@Body() dto: LoginDto) {
+    return this.authService.logIn(dto);
   }
 
   @Get('me')

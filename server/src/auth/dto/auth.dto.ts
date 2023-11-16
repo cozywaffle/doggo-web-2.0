@@ -19,3 +19,13 @@ export class AuthDto {
   @MaxLength(32)
   username: string;
 }
+
+export class LoginDto {
+  @IsNotEmpty()
+  @IsString()
+  login: string;
+
+  @IsNotEmpty()
+  @IsString()
+  password: string;
+}

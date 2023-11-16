@@ -1,5 +1,5 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-import { AuthDto } from './dto/index';
+import { AuthDto, LoginDto } from './dto/index';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as argon2 from 'argon2';
 import { JwtService } from '@nestjs/jwt';
@@ -14,6 +14,7 @@ export class AuthService {
     private jwt: JwtService,
     private config: ConfigService,
   ) {}
+
   async signUp(authDto: AuthDto): Promise<Token> {
     try {
       const is_not_available = await this.prismaService.user.findUnique({
@@ -35,7 +36,7 @@ export class AuthService {
         },
       });
 
-      const payload = { sub: user.id, login: user.login, hash: user.hash };
+      const payload = { sub: user.id, login: user.login };
 
       return this.signToken(payload);
     } catch (err) {
@@ -43,10 +44,32 @@ export class AuthService {
     }
   }
 
+  async logIn(dto: LoginDto) {
+    try {
+      const user = await this.prismaService.user.findUnique({
+        where: {
+          login: dto.login,
+        },
+      });
+
+      if (!user) throw new ForbiddenException('Credentials are incorrect');
+
+      const pw_matches = await argon2.verify(user.hash, dto.password);
+
+      if (!pw_matches)
+        throw new ForbiddenException('Credentials are incorrect');
+
+      const payload = { sub: user.id, login: user.login };
+
+      return await this.signToken(payload);
+    } catch (err) {
+      throw new ForbiddenException(err);
+    }
+  }
+
   private async signToken(payload: {
     sub: number;
     login: string;
-    hash: string;
   }): Promise<Token> {
     const secret = this.config.get('SECRET_KEY');
 
