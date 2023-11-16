@@ -3,21 +3,24 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Link, Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
-import { getMe, loginUser } from "../redux/slices/auth.slice";
+import { createUser, getMe } from "../redux/slices/auth.slice";
 
 interface IData {
   login: string;
   password: string;
+  username: string;
 }
 
-const Login: FC = () => {
+const Register: FC = () => {
   const [auth, setAuth] = useState<boolean>(false);
   const { register, handleSubmit } = useForm<IData>();
 
   const dispatch = useDispatch<AppDispatch>();
 
   const onSubmit: SubmitHandler<IData> = async inputData => {
-    const data = await dispatch(loginUser(inputData));
+    const data = await dispatch(createUser(inputData));
+
+    console.log(data);
 
     const token = data.payload.access_token;
 
@@ -32,7 +35,7 @@ const Login: FC = () => {
 
   return (
     <section className="text-white bg-neutral-800 p-6 rounded-md flex flex-col gap-y-4 justify-center items-center">
-      <h1 className="text-4xl font-thin py-1">Sign in</h1>
+      <h1 className="text-4xl font-thin py-1">Get started</h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-y-6 justify-center items-center">
@@ -58,6 +61,17 @@ const Login: FC = () => {
             name="password"
           />
         </div>
+        <div className="flex flex-col">
+          <label htmlFor="username" className="font-light">
+            Username
+          </label>
+          <input
+            {...register("username", { required: true })}
+            placeholder="username"
+            className="text-lg font-light bg-neutral-700 bg-opacity-30 rounded-md border border-transparent hover:border-white focus:border-white outline-none shadow-lg py-1 px-2 transition-all placeholder:opacity-20"
+            name="username"
+          />
+        </div>
         <input
           type="submit"
           value="continue"
@@ -65,13 +79,13 @@ const Login: FC = () => {
         />
       </form>
       <div className="flex text-xs font-thin justify-between gap-x-8 opacity-50">
-        <p>New to here?</p>
-        <Link className="underline" to="/register">
-          Get started
+        <p>Already have an account?</p>
+        <Link className="underline" to="/login">
+          Sign in
         </Link>
       </div>
     </section>
   );
 };
 
-export default Login;
+export default Register;

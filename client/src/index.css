@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,11 +18,15 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  height: 100vh;
+  height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
+
+  background-image: url("./assets/space-bg.jpg");
+  background-repeat: repeat-y;
+  background-blend-mode: color-dodge;
+  background-size: cover;
+}
+
+.font-header {
+  font-family: "Bebas Neue";
 }

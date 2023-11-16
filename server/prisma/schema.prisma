@@ -12,6 +12,7 @@ model User {
   login String  @unique
   username  String
   hash String
+  avatar_url String?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   posts Post[]
@@ -23,6 +24,8 @@ model Post {
   tags String[]
   image_url String?
   author    User?    @relation(fields: [authorId], references: [id])
+  likes Int
+  dislikes Int
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   authorId  Int?
