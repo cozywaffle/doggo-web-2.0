@@ -4,14 +4,17 @@ export interface IReqData {
   password: string;
 }
 
-export interface IUser {
+export interface IUserData {
   id: number;
-  login: string;
   username: String;
-  hash: string;
   avatar_url?: string;
   created_at: Date;
   updated_at: Date;
+}
+
+export interface IUser extends IUserData {
+  login: string;
+  hash: string;
   posts: IPost[] | [];
 }
 
@@ -29,7 +32,7 @@ export interface IPost {
 }
 
 export interface IData {
-  userData: IUser | null;
+  data: { userData: IUserData | null; posts: IPost } | null;
   status: string;
 }
 

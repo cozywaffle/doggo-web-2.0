@@ -42,35 +42,35 @@ const authSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(createUser.fulfilled, (state, action) => {
       state.token = action.payload;
-      state.status = "success";
+      state.status = "fulfilled";
     });
     builder.addCase(createUser.rejected, state => {
-      state.status = "failed";
+      state.status = "rejected";
     });
     builder.addCase(createUser.pending, state => {
-      state.status = "loading";
+      state.status = "pending";
     });
 
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.token = action.payload;
-      state.status = "success";
+      state.status = "fulfilled";
     });
     builder.addCase(loginUser.rejected, state => {
-      state.status = "failed";
+      state.status = "rejected";
     });
     builder.addCase(loginUser.pending, state => {
-      state.status = "loading";
+      state.status = "pending";
     });
 
     builder.addCase(getMe.fulfilled, (state, action) => {
       state.data = action.payload;
-      state.status = "success";
+      state.status = "fulfilled";
     });
     builder.addCase(getMe.rejected, state => {
-      state.status = "failed";
+      state.status = "rejected";
     });
     builder.addCase(getMe.pending, state => {
-      state.status = "loading";
+      state.status = "pending";
     });
   },
 });

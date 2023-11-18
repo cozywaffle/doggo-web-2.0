@@ -5,13 +5,12 @@ import { selectIsAuth } from "../redux/slices/auth.slice";
 import { RootState } from "../redux/store";
 import initialAvatar from "../assets/initial.jpg";
 import logo from "../assets/shiba-logo.png";
+import { Button } from "@mui/material";
 
 const NavBar: FC = () => {
   const isAuth = useSelector(selectIsAuth);
 
   const data = useSelector((state: RootState) => state.auth.data);
-
-  console.log(data);
 
   return (
     <header className="flex  border-b-2 border-neutral-900 justify-between py-2 px-4">
@@ -41,15 +40,19 @@ const NavBar: FC = () => {
           </>
         ) : (
           <div className="flex flex-row items-center gap-x-8">
-            <Link
-              to="/login"
-              className="text-md font-extralight transition-all hover:opacity-80">
-              Log in
+            <Link to="/login">
+              <Button
+                variant="text"
+                className="text-white font-thin rounded-full px-3">
+                Log in
+              </Button>
             </Link>
-            <Link
-              to="/register"
-              className="text-xl font-light bg-pink-400 rounded-md py-1 px-2 transition-all hover:bg-pink-300 active:translate-y-[2px]">
-              Get started
+            <Link to="/register">
+              <Button
+                variant="contained"
+                className="text-white bg-pink-400 hover:bg-pink-300">
+                Get started
+              </Button>
             </Link>
           </div>
         )}

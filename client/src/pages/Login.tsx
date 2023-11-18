@@ -4,6 +4,7 @@ import { Link, Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import { getMe, loginUser } from "../redux/slices/auth.slice";
+import { Button, TextField } from "@mui/material";
 
 interface IData {
   login: string;
@@ -37,32 +38,29 @@ const Login: FC = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-y-6 justify-center items-center">
         <div className="flex flex-col">
-          <label htmlFor="login" className="font-light">
-            Login
-          </label>
-          <input
+          <TextField
+            label="Login"
+            variant="outlined"
+            InputProps={{ className: "text-white" }}
+            InputLabelProps={{ className: "text-white text-opacity-50" }}
             {...register("login", { required: true })}
-            placeholder="login"
-            className="text-lg font-light bg-neutral-700 bg-opacity-30 rounded-md border border-transparent hover:border-white focus:border-white outline-none shadow-lg py-1 px-2 transition-all placeholder:opacity-20"
-            name="login"
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="password" className="font-light">
-            Password
-          </label>
-          <input
+          <TextField
+            label="Password"
+            variant="outlined"
+            InputProps={{ className: "text-white" }}
+            InputLabelProps={{ className: "text-white text-opacity-50" }}
             {...register("password", { required: true })}
-            placeholder="password"
-            className="text-lg font-light bg-neutral-700 bg-opacity-30 rounded-md border border-transparent hover:border-white focus:border-white outline-none shadow-lg py-1 px-2 transition-all placeholder:opacity-20"
-            name="password"
           />
         </div>
-        <input
+        <Button
           type="submit"
-          value="continue"
-          className="cursor-pointer bg-neutral-600 rounded w-[40%] py-1 px-1 transition-all hover:bg-white hover:text-black active:translate-y-[1px]"
-        />
+          variant="contained"
+          className="bg-pink-400 hover:bg-pink-300">
+          Continue
+        </Button>
       </form>
       <div className="flex text-xs font-thin justify-between gap-x-8 opacity-50">
         <p>New to here?</p>

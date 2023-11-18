@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import Login from "./pages/Login";
 import { Routes, Route } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage";
@@ -9,7 +9,7 @@ import Profile from "./pages/Profile";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "./redux/store";
 import { getMe } from "./redux/slices/auth.slice";
-import LoadingScreen from "./components/LoadingScreen";
+import Main from "./pages/Main";
 
 const App: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -22,10 +22,10 @@ const App: FC = () => {
 
   return (
     <>
-      <LoadingScreen />
       <NavBar />
       <Wrapper>
         <Routes>
+          <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/:id/:username" element={<Profile />} />
