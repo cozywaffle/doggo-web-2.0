@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectIsAuth } from "../redux/slices/auth.slice";
 import { RootState } from "../redux/store";
-import initialAvatar from "../assets/initial.jpg";
 import logo from "../assets/shiba-logo.png";
-import { Button } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
+import stringAvatar from "../utils/emptyAvatarGenerator";
 
 const NavBar: FC = () => {
   const isAuth = useSelector(selectIsAuth);
@@ -30,11 +30,9 @@ const NavBar: FC = () => {
                 <h3 className="text-sm font-thin opacity-50">
                   @{data?.username}
                 </h3>
-                <img
-                  src={data?.avatar_url ? data.avatar_url : initialAvatar}
-                  alt="profile picture"
-                  className="w-[40px] h-[40px] rounded-full"
-                />
+                <Avatar
+                  {...stringAvatar((data?.username || "").toString())}
+                  className="w-[40px] h-[40px] rounded-full"></Avatar>
               </Link>
             )}
           </>

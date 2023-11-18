@@ -5,6 +5,8 @@ import { getOne } from "../redux/slices/users.slice";
 import { AppDispatch, RootState } from "../redux/store";
 import initialAvatar from "../assets/initial.jpg";
 import ErrorPage from "./ErrorPage";
+import { Avatar } from "@mui/material";
+import stringAvatar from "../utils/emptyAvatarGenerator";
 
 const Profile: FC = () => {
   const params = useParams();
@@ -19,6 +21,8 @@ const Profile: FC = () => {
   }, [params]);
   const data = useSelector((state: RootState) => state.users.data);
 
+  console.log((data?.userData?.username || "").toString());
+
   return (
     <>
       {data ? (
@@ -32,10 +36,9 @@ const Profile: FC = () => {
                   alt="profile picture"
                 />
               ) : (
-                <img
-                  className="w-[300px] h-[300px] rounded-full bg-cover shadow-sm shadow-black"
-                  src={initialAvatar}
-                  alt="profile picture"
+                <Avatar
+                  className="w-[300px] h-[300px] rounded-full bg-cover shadow-sm shadow-black text-9xl"
+                  {...stringAvatar((data?.userData?.username || "").toString())}
                 />
               )}
               <div className="space-y-4">
