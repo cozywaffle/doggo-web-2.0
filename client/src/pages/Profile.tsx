@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { getOne } from "../redux/slices/users.slice";
 import { AppDispatch, RootState } from "../redux/store";
-import initialAvatar from "../assets/initial.jpg";
 import ErrorPage from "./ErrorPage";
 import { Avatar } from "@mui/material";
 import stringAvatar from "../utils/emptyAvatarGenerator";
@@ -41,7 +40,7 @@ const Profile: FC = () => {
                   {...stringAvatar((data?.userData?.username || "").toString())}
                 />
               )}
-              <div className="space-y-4">
+              <div className="space-y-4 flex flex-col items-center">
                 <div>
                   <h1 className="text-2xl font-semibold">
                     {data.userData?.username}

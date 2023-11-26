@@ -23,7 +23,7 @@ export interface IPost {
   content: string;
   tags: string[] | [];
   image_url?: string;
-  author: IUser;
+  author: IUserData;
   likes: number;
   dislikes: number;
   created_at: Date;
