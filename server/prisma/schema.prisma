@@ -24,8 +24,8 @@ model Post {
   tags String[]
   image_url String?
   author    User?    @relation(fields: [authorId], references: [id])
-  likes Int
-  dislikes Int
+  likes Int @default(0)
+  dislikes Int @default(0)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   authorId  Int?

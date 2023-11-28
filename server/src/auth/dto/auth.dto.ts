@@ -29,3 +29,10 @@ export class LoginDto {
   @IsString()
   password: string;
 }
+
+export class DecryptedToken {
+  exp: number;
+  iat: number;
+  login: string;
+  sub: number;
+}

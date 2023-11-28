@@ -1,7 +1,6 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto, LoginDto } from './dto';
-import { AuthGuard } from './auth.guard';
 import { Public } from 'src/utils/global-token-decorator';
 
 @Controller('auth')
