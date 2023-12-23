@@ -77,24 +77,26 @@ const Profile: FC = () => {
             </div>
 
             <div className="flex flex-col justify-start items-center bg-neutral-800 rounded-md bg-opacity-70">
-              <div className="flex flex-col space-y-4">
+              <div className="p-2 flex flex-col space-y-4">
                 {posts ? (
                   posts.map(post => (
-                    <Post
-                      key={post.id}
-                      props={{
-                        id: post.id,
-                        content: post.content,
-                        tags: post.tags,
-                        image_url: post.image_url,
-                        author: data.userData!,
-                        likes: post.likes,
-                        dislikes: post.dislikes,
-                        created_at: post.created_at,
-                        updated_at: post.updated_at,
-                        authorId: post.authorId,
-                      }}
-                    />
+                    <div className="max-w-3xl">
+                      <Post
+                        key={post.id}
+                        props={{
+                          id: post.id,
+                          content: post.content,
+                          tags: post.tags,
+                          image_url: post.image_url,
+                          author: data.userData!,
+                          likes: post.likes,
+                          dislikes: post.dislikes,
+                          created_at: post.created_at,
+                          updated_at: post.updated_at,
+                          authorId: post.authorId,
+                        }}
+                      />
+                    </div>
                   ))
                 ) : (
                   <>

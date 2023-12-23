@@ -9,6 +9,10 @@ export class PostsService {
 
   async createOne(dto: PostDto, userAuthData: DecryptedToken) {
     try {
+      const { username } = await this.prisma.user.findUnique({
+        where: { id: userAuthData.sub, login: userAuthData.login },
+      });
+
       const post = await this.prisma.post.create({
         data: {
           content: dto.content,
@@ -25,7 +29,26 @@ export class PostsService {
   }
 
   async getAll() {
-    const posts = await this.prisma.post.findMany();
+    const posts = await this.prisma.post.findMany({
+      select: {
+        id: true,
+        content: true,
+        tags: true,
+        image_url: true,
+        likes: true,
+        dislikes: true,
+        created_at: true,
+        updated_at: true,
+        authorId: true,
+        author: {
+          select: {
+            username: true,
+            id: true,
+          },
+        },
+      },
+    });
+
     return posts;
   }
 }

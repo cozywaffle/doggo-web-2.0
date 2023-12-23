@@ -16,11 +16,11 @@ const Post: FC<IProps> = ({ props }) => {
       id={props.id.toString()}
       className="flex flex-col justify-center items-center p-2 rounded-lg bg-neutral-800 shadow-2xl space-x-2 transition-all cursor-pointer hover:bg-neutral-700 hover:shadow-xl">
       {props.image_url && (
-        <div className="w-[700px] h-[350px] flex items-center justify-center">
+        <div className="flex items-center justify-center">
           <img
             src={props.image_url}
             alt=""
-            className="h-full w-full object-cover rounded-lg"
+            className="w-screen h-fit rounded-lg"
           />
         </div>
       )}
