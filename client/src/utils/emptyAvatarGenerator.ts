@@ -21,14 +21,11 @@ function stringAvatar(name: string) {
   let firstWord;
   let lastWord;
 
-  console.log(wordList);
   firstWord = wordList[0];
 
   if (wordList.length > 1) {
     lastWord = wordList[1];
   }
-
-  console.log({ firstWord, lastWord });
 
   const firstLetter1 = firstWord[0];
   let firstLetter2;
@@ -36,8 +33,6 @@ function stringAvatar(name: string) {
   if (lastWord) {
     firstLetter2 = lastWord[0];
   } else firstLetter2 = "";
-
-  console.log({ firstWord, lastWord });
 
   return {
     sx: {

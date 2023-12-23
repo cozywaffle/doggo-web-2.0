@@ -14,24 +14,18 @@ export class PostsService {
           content: dto.content,
           tags: dto.tags,
           image_url: dto.image_url,
-        },
-      });
-
-      await this.prisma.post.update({
-        where: { id: post.id },
-        data: {
           authorId: userAuthData.sub,
         },
       });
 
-      return await this.prisma.post.update({
-        where: { id: post.id },
-        data: {
-          authorId: userAuthData.sub,
-        },
-      });
+      return post;
     } catch (error) {
       throw new Error(error);
     }
+  }
+
+  async getAll() {
+    const posts = await this.prisma.post.findMany();
+    return posts;
   }
 }

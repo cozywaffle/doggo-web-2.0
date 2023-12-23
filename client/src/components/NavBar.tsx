@@ -6,6 +6,7 @@ import { RootState } from "../redux/store";
 import logo from "../assets/shiba-logo.png";
 import { Avatar, Button } from "@mui/material";
 import stringAvatar from "../utils/emptyAvatarGenerator";
+import CreatePost from "./CreatePost";
 
 const NavBar: FC = () => {
   const isAuth = useSelector(selectIsAuth);
@@ -22,20 +23,19 @@ const NavBar: FC = () => {
       </Link>
       <div className="flex gap-x-4 items-center">
         {isAuth ? (
-          <>
-            {isAuth && (
-              <Link
-                to={`/${data?.id}/${data?.username}`}
-                className="flex items-center gap-x-2 text-xl font-thin">
-                <h3 className="text-sm font-thin opacity-50">
-                  @{data?.username}
-                </h3>
-                <Avatar
-                  {...stringAvatar((data?.username || "").toString())}
-                  className="w-[40px] h-[40px] rounded-full"></Avatar>
-              </Link>
-            )}
-          </>
+          <div className="flex gap-4">
+            <CreatePost />
+            <Link
+              to={`/${data?.id}/${data?.username}`}
+              className="flex items-center gap-x-2 text-xl font-thin">
+              <h3 className="text-sm font-thin opacity-50">
+                @{data?.username}
+              </h3>
+              <Avatar
+                {...stringAvatar((data?.username || "").toString())}
+                className="w-[40px] h-[40px] rounded-full"></Avatar>
+            </Link>
+          </div>
         ) : (
           <div className="flex flex-row items-center gap-x-8">
             <Link to="/login">

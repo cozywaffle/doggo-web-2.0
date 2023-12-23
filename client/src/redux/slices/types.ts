@@ -32,7 +32,7 @@ export interface IPost {
 }
 
 export interface IData {
-  data: { userData: IUserData | null; posts: IPost } | null;
+  data: { userData: IUserData | null; posts: IPost[] } | null;
   status: string;
 }
 
