@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IData, IUrlParams } from "./types";
+import { IData, IUrlParams, Status } from "./types";
 import axios from "../../utils/axios";
 
 export const getOne = createAsyncThunk(
@@ -14,7 +14,7 @@ export const getOne = createAsyncThunk(
 
 const initialState: IData = {
   data: null,
-  status: "idle",
+  status: Status.idle,
 };
 
 const usersSlice = createSlice({
@@ -24,11 +24,11 @@ const usersSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(getOne.fulfilled, (state, action) => {
       state.data = action.payload;
-      state.status = "fulfilled";
+      state.status = Status.fulfilled;
     });
     builder.addCase(getOne.rejected, state => {
       state.data = null;
-      state.status = "rejected";
+      state.status = Status.rejected;
     });
   },
 });

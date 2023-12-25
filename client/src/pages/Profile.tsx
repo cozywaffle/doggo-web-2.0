@@ -85,6 +85,7 @@ const Profile: FC = () => {
                         key={post.id}
                         props={{
                           id: post.id,
+                          title: post.title,
                           content: post.content,
                           tags: post.tags,
                           image_url: post.image_url,

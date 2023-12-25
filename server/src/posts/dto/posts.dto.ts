@@ -14,6 +14,12 @@ export class PostDto {
   @MaxLength(4000)
   content: string;
 
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(1)
+  @MaxLength(64)
+  title: string;
+
   @IsArray()
   tags: string[] | [];
 

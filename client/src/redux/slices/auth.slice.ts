@@ -32,7 +32,7 @@ export const getMe = createAsyncThunk("auth/fetchAuthMe", async () => {
 const initialState: types.IinitialState = {
   token: null,
   data: null,
-  status: "idle",
+  status: types.Status.idle,
 };
 
 const authSlice = createSlice({
@@ -42,35 +42,35 @@ const authSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(createUser.fulfilled, (state, action) => {
       state.token = action.payload;
-      state.status = "fulfilled";
+      state.status = types.Status.fulfilled;
     });
     builder.addCase(createUser.rejected, state => {
-      state.status = "rejected";
+      state.status = types.Status.rejected;
     });
     builder.addCase(createUser.pending, state => {
-      state.status = "pending";
+      state.status = types.Status.pending;
     });
 
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.token = action.payload;
-      state.status = "fulfilled";
+      state.status = types.Status.fulfilled;
     });
     builder.addCase(loginUser.rejected, state => {
-      state.status = "rejected";
+      state.status = types.Status.rejected;
     });
     builder.addCase(loginUser.pending, state => {
-      state.status = "pending";
+      state.status = types.Status.pending;
     });
 
     builder.addCase(getMe.fulfilled, (state, action) => {
       state.data = action.payload;
-      state.status = "fulfilled";
+      state.status = types.Status.fulfilled;
     });
     builder.addCase(getMe.rejected, state => {
-      state.status = "rejected";
+      state.status = types.Status.rejected;
     });
     builder.addCase(getMe.pending, state => {
-      state.status = "pending";
+      state.status = types.Status.pending;
     });
   },
 });

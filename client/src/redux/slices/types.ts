@@ -1,3 +1,10 @@
+export enum Status {
+  idle = "idle",
+  fulfilled = "fulfilled",
+  rejected = "rejected",
+  pending = "pending",
+}
+
 export interface IReqData {
   username?: string;
   login: string;
@@ -20,6 +27,7 @@ export interface IUser extends IUserData {
 
 export interface IPost {
   id: number;
+  title: string;
   content: string;
   tags: string[] | [];
   image_url?: string;
@@ -33,13 +41,18 @@ export interface IPost {
 
 export interface IData {
   data: { userData: IUserData | null; posts: IPost[] } | null;
-  status: string;
+  status: Status;
+}
+
+export interface IDataPosts {
+  data: null | IPost[];
+  status: Status;
 }
 
 export interface IinitialState {
   token: null | string;
   data: null | IUser;
-  status: string;
+  status: Status;
 }
 
 export interface IUrlParams {

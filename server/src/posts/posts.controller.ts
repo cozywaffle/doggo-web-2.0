@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Req,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { PostDto } from './dto/posts.dto';
 import { User } from 'src/utils/decrypt-token';
@@ -18,5 +26,17 @@ export class PostsController {
   @Get('getall')
   getAll() {
     return this.postsService.getAll();
+  }
+
+  @Public()
+  @Get('/:id')
+  getOne(@Param('id', ParseIntPipe) id: number) {
+    return this.postsService.getOne(id);
+  }
+
+  @Public()
+  @Get('posts/:category')
+  getSorted(@Param('category') category: string) {
+    return this.postsService.getSorted(category);
   }
 }

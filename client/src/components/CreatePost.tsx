@@ -5,11 +5,13 @@ import ImageIcon from "@mui/icons-material/Image";
 import axios from "../utils/axios";
 
 interface IData {
+  title: string;
   content: string;
 }
 
 const CreatePost: FC = () => {
   const [activeEditing, setActiveEditing] = useState<boolean>(false);
+  const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState("");
   const [tags, setTags] = useState<string[]>([]);
@@ -55,7 +57,12 @@ const CreatePost: FC = () => {
 
   const submitHandler: SubmitHandler<IData> = async data => {
     try {
-      const postTemplate = { content: data.content, tags, image_url: image };
+      const postTemplate = {
+        title,
+        content: data.content,
+        tags,
+        image_url: image,
+      };
 
       console.log(postTemplate);
 
@@ -94,19 +101,31 @@ const CreatePost: FC = () => {
           ref={containerRef}
           className="flex flex-col bg-neutral-800 bg-opacity-95 rounded-md w-[60%] max-h-[80vh] p-2">
           <div className="flex flex-row items-center justify-start w-full">
-            <TextField
-              multiline
-              variant="filled"
-              color="primary"
-              rows={10}
-              InputLabelProps={{ className: "text-white opacity-60" }}
-              InputProps={{ className: "text-white" }}
-              label="What's on your mind today?"
-              className="py-1 px-2 w-[70%] h-full"
-              value={content}
-              {...register("content", { required: true })}
-              onChange={e => setContent(e.target.value)}></TextField>
-            <Button onClick={() => inputRef.current?.click()}>
+            <div className="flex flex-col py-1 px-2 w-[70%] h-full">
+              <TextField
+                multiline
+                variant="standard"
+                color="warning"
+                rows={1}
+                InputLabelProps={{ className: "text-white opacity-60" }}
+                InputProps={{ className: "text-white" }}
+                label="Title"
+                value={title}
+                {...register("title", { required: true })}
+                onChange={e => setTitle(e.target.value)}></TextField>
+              <TextField
+                multiline
+                variant="filled"
+                color="warning"
+                rows={10}
+                InputLabelProps={{ className: "text-white opacity-60" }}
+                InputProps={{ className: "text-white" }}
+                label="What's on your mind today?"
+                value={content}
+                {...register("content", { required: true })}
+                onChange={e => setContent(e.target.value)}></TextField>
+            </div>
+            <Button color="warning" onClick={() => inputRef.current?.click()}>
               <input
                 type="file"
                 ref={inputRef}
@@ -120,7 +139,11 @@ const CreatePost: FC = () => {
                   className="w-[271.13px] h-[271.13px] bg-cover"
                 />
               ) : (
-                <ImageIcon fontSize="large" className="w-full h-[50%]" />
+                <ImageIcon
+                  color="warning"
+                  fontSize="large"
+                  className="w-full h-[50%] "
+                />
               )}
             </Button>
           </div>
@@ -130,15 +153,16 @@ const CreatePost: FC = () => {
             ))}
           </div>
           <div className="flex justify-between">
-            <div className="flex gap-2 items-center text-md text-neutral-300 opacity-80 bg-blue-400 w-fit px-2 rounded-md">
+            <div className="flex gap-2 items-center text-md text-white opacity-80 bg-orange-500 w-fit px-2 rounded-md">
               <h1>Tags:</h1>
               <TextField
+                color="warning"
                 InputProps={{ className: "text-white" }}
                 onKeyDown={e => setTag(e)}
                 variant="standard"></TextField>
               <h1 className="text-neutral-900">(press enter)</h1>
             </div>
-            <Button type="submit" variant="contained">
+            <Button color="warning" type="submit" variant="contained">
               Create
             </Button>
           </div>

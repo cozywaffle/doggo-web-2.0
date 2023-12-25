@@ -35,7 +35,7 @@ const Post: FC<IProps> = ({ props }) => {
         </h5>
         <h2>{props.updated_at.toLocaleString()}</h2>
       </div>
-      {/* <h1 className="text-lg font-bold p-1">{props.title}</h1> */}
+      <h1 className="text-lg font-bold p-1">{props.title}</h1>
       <p className="truncate w-[500px] text-md font-normal p-1">
         {props.content}
       </p>

@@ -9,12 +9,9 @@ export class PostsService {
 
   async createOne(dto: PostDto, userAuthData: DecryptedToken) {
     try {
-      const { username } = await this.prisma.user.findUnique({
-        where: { id: userAuthData.sub, login: userAuthData.login },
-      });
-
       const post = await this.prisma.post.create({
         data: {
+          title: dto.title,
           content: dto.content,
           tags: dto.tags,
           image_url: dto.image_url,
@@ -32,6 +29,7 @@ export class PostsService {
     const posts = await this.prisma.post.findMany({
       select: {
         id: true,
+        title: true,
         content: true,
         tags: true,
         image_url: true,
@@ -50,5 +48,36 @@ export class PostsService {
     });
 
     return posts;
+  }
+
+  async getOne(id: number) {
+    try {
+      const post = await this.prisma.post.findUnique({ where: { id } });
+      return post;
+    } catch (error) {
+      throw new error(error);
+    }
+  }
+
+  async getSorted(category: string) {
+    try {
+      if (category === 'popular') {
+        return await this.prisma.post.findMany({
+          orderBy: [{ views: 'desc' }],
+        });
+      }
+      if (category === 'most liked') {
+        return await this.prisma.post.findMany({
+          orderBy: [{ likes: 'desc' }],
+        });
+      }
+      if (category === 'most disliked') {
+        return await this.prisma.post.findMany({
+          orderBy: [{ dislikes: 'desc' }],
+        });
+      }
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
