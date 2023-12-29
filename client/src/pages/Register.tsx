@@ -44,6 +44,7 @@ const Register: FC = () => {
           <TextField
             label="Login"
             variant="outlined"
+            color="warning"
             InputProps={{ className: "text-white" }}
             InputLabelProps={{ className: "text-white text-opacity-50" }}
             {...register("login", { required: true })}
@@ -53,6 +54,7 @@ const Register: FC = () => {
           <TextField
             label="Password"
             variant="outlined"
+            color="warning"
             InputProps={{ className: "text-white" }}
             InputLabelProps={{ className: "text-white text-opacity-50" }}
             {...register("password", { required: true })}
@@ -62,6 +64,7 @@ const Register: FC = () => {
           <TextField
             label="Username"
             variant="outlined"
+            color="warning"
             InputProps={{ className: "text-white" }}
             InputLabelProps={{ className: "text-white text-opacity-50" }}
             {...register("username", { required: true })}
@@ -70,7 +73,7 @@ const Register: FC = () => {
         <Button
           type="submit"
           variant="contained"
-          className="bg-pink-400 hover:bg-pink-300">
+          className="bg-orange-500 hover:bg-orange-400">
           Continue
         </Button>
       </form>

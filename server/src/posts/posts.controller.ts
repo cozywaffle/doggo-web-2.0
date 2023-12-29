@@ -35,7 +35,7 @@ export class PostsController {
   }
 
   @Public()
-  @Get('posts/:category')
+  @Get('sortby/:category')
   getSorted(@Param('category') category: string) {
     return this.postsService.getSorted(category);
   }

@@ -75,6 +75,7 @@ const CreatePost: FC = () => {
       setContent("");
       setImage("");
       setTags([]);
+      setTitle("");
 
       console.log(postData);
 
@@ -90,7 +91,7 @@ const CreatePost: FC = () => {
       <Button
         variant="contained"
         onClick={() => setActiveEditing(!activeEditing)}
-        className="bg-transparent text-white hover:bg-neutral-500 hover:bg-opacity-40">
+        className="bg-orange-400 text-white hover:bg-orange-500">
         Publish
       </Button>
       <Backdrop

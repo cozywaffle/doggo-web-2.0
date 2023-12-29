@@ -5,21 +5,24 @@ import Masonry from "@mui/lab/Masonry";
 import { useDispatch, useSelector } from "react-redux";
 import { getAll } from "../redux/slices/posts.slice";
 import { AppDispatch, RootState } from "../redux/store";
-import { Button, ButtonGroup } from "@mui/material";
+
+import Sorting from "../components/Sorting";
 
 const Main: FC = () => {
+  const data = useSelector((state: RootState) => state.posts.data);
   const [posts, setPosts] = useState<IPost[] | null>(null);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    const getPosts = async () => await dispatch(getAll());
+    if (data) return;
+
+    const getPosts = async () => {
+      await dispatch(getAll());
+    };
     getPosts();
   }, []);
 
-  const data = useSelector((state: RootState) => state.posts.data);
-
   useEffect(() => {
-    if (!data) return;
     setPosts(data);
   }, [data]);
 
@@ -30,19 +33,11 @@ const Main: FC = () => {
       <section className="flex flex-col w-[1300px] p-4 bg-neutral-800 bg-opacity-95 rounded-2xl ">
         <div className="flex items-center justify-between p-1 pb-3">
           <h1 className="text-white font-bold text-xl">Publications:</h1>
-          <div className="flex items-center gap-4">
-            <ButtonGroup variant="text" color="warning">
-              <Button color="warning">Popular</Button>
-              <Button color="warning">Most liked</Button>
-              <Button color="warning">Most disliked</Button>
-              <Button color="warning">Latest</Button>
-              <Button color="warning">Folowing</Button>
-            </ButtonGroup>
-          </div>
+          <Sorting />
         </div>
-        <Masonry columns={2} spacing={1}>
-          {posts ? (
-            posts.map(post => (
+        {posts?.length ? (
+          <Masonry columns={2} spacing={1}>
+            {posts.map(post => (
               <Post
                 key={post.id}
                 props={{
@@ -59,13 +54,15 @@ const Main: FC = () => {
                   authorId: post.authorId,
                 }}
               />
-            ))
-          ) : (
-            <div className="text-center text-2xl font-thin">
-              <h1>There's no publications yet!</h1>
+            ))}
+          </Masonry>
+        ) : (
+          <div className="p-4 flex justify-center text-center text-2xl font-thin">
+            <div className="flex h-96 items-center justify-center text-orange-400 underline text-4xl font-semibold">
+              No posts yet!
             </div>
-          )}
-        </Masonry>
+          </div>
+        )}
       </section>
     </main>
   );

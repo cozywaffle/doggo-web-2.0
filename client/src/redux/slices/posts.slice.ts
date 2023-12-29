@@ -8,11 +8,14 @@ export const getAll = createAsyncThunk("posts/getAll", async () => {
   return data as types.IPost[];
 });
 
-export const getOne = createAsyncThunk("posts/getOne", async id => {
-  const data = await axios.get(`posts/${id}`);
+export const getSorted = createAsyncThunk(
+  "posts/getSorted",
+  async (order: string) => {
+    const { data } = await axios.get(`posts/sortby/${order}`);
 
-  return data;
-});
+    return data as types.IPost[];
+  },
+);
 
 const initialState: types.IDataPosts = {
   data: null,
@@ -33,6 +36,17 @@ const postsSlice = createSlice({
       state.status = types.Status.rejected;
     });
     builder.addCase(getAll.pending, state => {
+      state.status = types.Status.pending;
+    });
+    builder.addCase(getSorted.fulfilled, (state, action) => {
+      state.data = action.payload;
+      state.status = types.Status.fulfilled;
+    });
+    builder.addCase(getSorted.rejected, state => {
+      state.data = null;
+      state.status = types.Status.rejected;
+    });
+    builder.addCase(getSorted.pending, state => {
       state.status = types.Status.pending;
     });
   },

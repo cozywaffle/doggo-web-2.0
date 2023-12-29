@@ -27,17 +27,7 @@ export class PostsService {
 
   async getAll() {
     const posts = await this.prisma.post.findMany({
-      select: {
-        id: true,
-        title: true,
-        content: true,
-        tags: true,
-        image_url: true,
-        likes: true,
-        dislikes: true,
-        created_at: true,
-        updated_at: true,
-        authorId: true,
+      include: {
         author: {
           select: {
             username: true,
@@ -52,7 +42,17 @@ export class PostsService {
 
   async getOne(id: number) {
     try {
-      const post = await this.prisma.post.findUnique({ where: { id } });
+      const post = await this.prisma.post.findUnique({
+        where: { id },
+        include: {
+          author: {
+            select: {
+              username: true,
+              id: true,
+            },
+          },
+        },
+      });
       return post;
     } catch (error) {
       throw new error(error);
@@ -61,20 +61,60 @@ export class PostsService {
 
   async getSorted(category: string) {
     try {
-      if (category === 'popular') {
-        return await this.prisma.post.findMany({
-          orderBy: [{ views: 'desc' }],
-        });
-      }
-      if (category === 'most liked') {
-        return await this.prisma.post.findMany({
-          orderBy: [{ likes: 'desc' }],
-        });
-      }
-      if (category === 'most disliked') {
-        return await this.prisma.post.findMany({
-          orderBy: [{ dislikes: 'desc' }],
-        });
+      const cases = ['popular', 'most-liked', 'most-disliked', 'latest'];
+
+      switch (category) {
+        case cases[0]:
+          return await this.prisma.post.findMany({
+            orderBy: [{ views: 'desc' }],
+            include: {
+              author: {
+                select: {
+                  username: true,
+                  id: true,
+                },
+              },
+            },
+          });
+        case cases[1]:
+          return await this.prisma.post.findMany({
+            orderBy: [{ likes: 'desc' }],
+            include: {
+              author: {
+                select: {
+                  username: true,
+                  id: true,
+                },
+              },
+            },
+          });
+        case cases[2]:
+          return await this.prisma.post.findMany({
+            orderBy: [{ dislikes: 'desc' }],
+            include: {
+              author: {
+                select: {
+                  username: true,
+                  id: true,
+                },
+              },
+            },
+          });
+        case cases[3]:
+          return await this.prisma.post.findMany({
+            orderBy: [{ id: 'desc' }],
+            include: {
+              author: {
+                select: {
+                  username: true,
+                  id: true,
+                },
+              },
+            },
+          });
+
+        default:
+          break;
       }
     } catch (error) {
       throw new Error(error);

@@ -48,7 +48,7 @@ const NavBar: FC = () => {
             <Link to="/register">
               <Button
                 variant="contained"
-                className="text-white bg-pink-400 hover:bg-pink-300">
+                className="text-white bg-orange-500 hover:bg-orange-400">
                 Get started
               </Button>
             </Link>
